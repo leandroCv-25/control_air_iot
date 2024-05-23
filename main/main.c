@@ -52,7 +52,7 @@ void app_main(void)
     rmt_rx_channel_config_t rx_channel_cfg = {
         .clk_src = RMT_CLK_SRC_DEFAULT,
         .resolution_hz = 1000000, // 1MHz resolution, 1 tick = 1us
-        .mem_block_symbols = 200,  // amount of RMT symbols that the channel can store at a time
+        .mem_block_symbols = 300,  // amount of RMT symbols that the channel can store at a time
         .gpio_num = 19,
     };
 
@@ -69,7 +69,7 @@ void app_main(void)
 
     // the following timing requirement is based on NEC protocol
     rmt_receive_config_t receive_config = {
-        .signal_range_min_ns = 1250,     // the shortest duration for NEC signal is 560us, 1250ns < 560us, valid signal won't be treated as noise
+        .signal_range_min_ns = 1,     // the shortest duration for NEC signal is 560us, 1250ns < 560us, valid signal won't be treated as noise
         .signal_range_max_ns = 12000000, // the longest duration for NEC signal is 9000us, 12000000ns > 9000us, the receive won't stop early
     };
 
@@ -77,7 +77,7 @@ void app_main(void)
     ESP_ERROR_CHECK(rmt_enable(rx_channel));
 
     // save the received RMT symbols
-    rmt_symbol_word_t raw_symbols[200]; // 200 symbols should be sufficient for a standard NEC frame
+    rmt_symbol_word_t raw_symbols[300]; // 200 symbols should be sufficient for a standard NEC frame
     rmt_rx_done_event_data_t rx_data;
     // ready to receive
     ESP_ERROR_CHECK(rmt_receive(rx_channel, raw_symbols, sizeof(raw_symbols), &receive_config));
