@@ -2,3 +2,8 @@
 .devcontainer/
 build/
 managed_components/
+.devcontainer/devcontainer.json
+.devcontainer/Dockerfile
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+.vscode/tasks.json
