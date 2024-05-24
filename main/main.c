@@ -7,6 +7,7 @@
 #include "esp_log.h"
 #include <nvs_flash.h>
 
+#include "ir_enconder.h"
 #include "rx_control.h"
 #include "driver/rmt_tx.h"
 
@@ -281,7 +282,14 @@ void app_main(void)
         .loop_count = 0, // no loop
     };
 
+    ESP_LOGI(TAG, "install IR encoder");
+    ir_encoder_config_t nec_encoder_cfg = {
+        .resolution = 1000000,
+    };
+
     rmt_encoder_handle_t encoder = NULL;
+
+
 
     ESP_LOGI(TAG, "enable RMT TX channel");
     ESP_ERROR_CHECK(rmt_enable(tx_channel));
