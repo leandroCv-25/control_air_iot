@@ -283,21 +283,28 @@ void app_main(void)
     };
 
     ESP_LOGI(TAG, "install IR encoder");
-    ir_encoder_config_t nec_encoder_cfg = {
+    ir_encoder_config_t ir_encoder_cfg = {
         .resolution = 1000000,
     };
 
-    rmt_encoder_handle_t encoder = NULL;
+    rmt_encoder_handle_t ir_encoder = NULL;
 
-
+    ESP_ERROR_CHECK(rmt_new_ir_encoder(&ir_encoder_cfg, &ir_encoder));
 
     ESP_LOGI(TAG, "enable RMT TX channel");
     ESP_ERROR_CHECK(rmt_enable(tx_channel));
 
     while (true)
     {
-        ESP_ERROR_CHECK(rmt_transmit(tx_channel, encoder, powerOff, sizeof(powerOff), &transmit_config));
-        printf("%d", sizeof(powerOff) / sizeof(u_int32_t));
+        for (int i = 0; i < sizeof(powerOff) / sizeof(powerOff[0]); i += 2)
+        {
+            ir_scan_code_t scan = {
+                .t0=powerOff[i],
+                .t1=powerOff[i+1],
+            };
+
+            ESP_ERROR_CHECK(rmt_transmit(tx_channel, ir_encoder, &scan, sizeof(scan), &transmit_config));
+        }
         vTaskDelay(pdMS_TO_TICKS(1500000));
     }
 

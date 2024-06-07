@@ -16,6 +16,12 @@ extern "C"
         uint32_t resolution; /*!< Encoder resolution, in Hz */
     } ir_encoder_config_t;
 
+    typedef struct
+    {
+        uint32_t t0;
+        uint32_t t1;
+    } ir_scan_code_t;
+
     /**
      * @brief Create RMT encoder for encoding IR   frame into RMT symbols
      *
