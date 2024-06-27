@@ -2,6 +2,8 @@
 #include "driver/rmt_encoder.h"
 #include "driver/rmt_types.h"
 
+#include "esp_log.h"
+
 #include "ir_enconder.h"
 
 static const char *TAG = "encoder";
@@ -20,6 +22,8 @@ static size_t rmt_encode_ir(rmt_encoder_t *encoder, rmt_channel_handle_t channel
     rmt_encode_state_t session_state = RMT_ENCODING_RESET;
 
     ir_scan_code_t *scan_code = (ir_scan_code_t *)primary_data;
+
+    // ESP_LOGI(TAG,"SCAN TO  = %lu\n",scan_code->t0);
 
     rmt_symbol_word_t rmt_symbol = {
         .level0 = 0,
