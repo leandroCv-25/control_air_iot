@@ -13,12 +13,14 @@
 #define recvPin 19
 #define senderPin 18
 
-typedef struct no{
-  uint16_t  data[kCaptureBufferSize];
+typedef struct no {
+  uint16_t data[kCaptureBufferSize];
   uint16_t size;
 } command;
 
 List<command> newCommand;
+
+enum typeCommand  { ON, OFF, VENTILATE };
 
 // The IR transmitter.
 IRsend irsend(senderPin);
@@ -28,5 +30,8 @@ IRrecv irrecv(recvPin, kCaptureBufferSize, kTimeout, false);
 void irBegin();
 bool irCommandCopy();
 void irTestNewCommand();
+bool irsaveCommand(typeCommand type);
+bool _irloadCommand(typeCommand type);
+void irSendCommand(typeCommand type);
 
 #endif

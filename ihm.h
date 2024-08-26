@@ -42,6 +42,9 @@ private:
 
   bool(*_addCommand) ();
   void(*_testCommand) ();
+  bool (*_saveCmdOn)();
+  bool (*_saveCmdOff)();
+  bool (*_saveCmdVentilate)();
 
   bool _refresh;
 
@@ -58,6 +61,9 @@ public:
   void setWifiStatus(ihmWifiStatus wifiStatus);
   void setAddCommand(bool (*fuction)());
   void setTestCommand(void (*fuction)());
+  void setSaveCmdOn(bool (*fuction)());
+  void setSaveCmdOff(bool (*fuction)());
+  void setSaveCmdVentilate(bool (*fuction)());
 
   void controller();
 };

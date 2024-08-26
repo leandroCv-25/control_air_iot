@@ -3,9 +3,14 @@
 #include <IRremoteESP8266.h>
 #include <IRutils.h>
 
+#include "nvs_flash.h"
+
 #include "ir.h"
 
 uint16_t *raw_array;
+
+// NVS name space used for station mode credentials
+const char app_nvs_ir_namespace[] = "ir_cmds";
 
 void irBegin() {
   irrecv.enableIRIn();  // Start up the IR receiver.
@@ -70,6 +75,41 @@ void _irSendCommand(List<command> *command) {
     delay(50);
   }
 }
+
+bool irsaveCommand(typeCommand type) {
+
+  nvs_handle handle;
+
+  if (nvs_open(app_nvs_ir_namespace, NVS_READWRITE, &handle) != ESP_OK) {
+    Serial.println("Error while opening NVS handle!\n");
+    return false;
+  }
+
+  if (type == ON) {
+    nvs_set_blob(handle, "CmdOn", &newCommand, sizeof(newCommand));
+  } else if (type == OFF) {
+    nvs_set_blob(handle, "CmdOFF", &newCommand, sizeof(newCommand));
+  } else {
+    nvs_set_blob(handle, "CmdVentilate", &newCommand, sizeof(newCommand));
+  }
+
+
+  if (nvs_commit(handle) != ESP_OK) {
+    Serial.println("Error comitting state to NVS!");
+    return false;
+  }
+
+  nvs_close(handle);
+  return true;
+}
+
+bool _irloadCommand(typeCommand type) {
+}
+
+void irSendCommand(typeCommand type) {
+}
+
+
 
 void irTestNewCommand() {
   _irSendCommand(&newCommand);

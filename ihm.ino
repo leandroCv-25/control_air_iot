@@ -386,9 +386,9 @@ void IHM::_print() {
       _LcdOLED.setCursor(12, 19);
       _LcdOLED.println("Configurar Aparelho");
       _LcdOLED.setCursor(12, 31);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.setCursor(12, 43);
-      _LcdOLED.println("Remover Comando");
+      _LcdOLED.println("Adicionar Cmd Off");
       _LcdOLED.display();
       break;
 
@@ -396,14 +396,14 @@ void IHM::_print() {
       _LcdOLED.clearDisplay();
       _printHeader();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
-      _LcdOLED.setCursor(0, 31);
+      _LcdOLED.setCursor(0, 19);
       _LcdOLED.println("->");
       _LcdOLED.setCursor(12, 19);
-      _LcdOLED.println("Configurar Aparelho");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.setCursor(12, 31);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd Off");
       _LcdOLED.setCursor(12, 43);
-      _LcdOLED.println("Remover Comando");
+      _LcdOLED.println("Adicionar Cmd Vent.");
       _LcdOLED.display();
       break;
 
@@ -411,17 +411,31 @@ void IHM::_print() {
       _LcdOLED.clearDisplay();
       _printHeader();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
-      _LcdOLED.setCursor(0, 43);
+      _LcdOLED.setCursor(0, 31);
       _LcdOLED.println("->");
       _LcdOLED.setCursor(12, 19);
-      _LcdOLED.println("Configurar Aparelho");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.setCursor(12, 31);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd Off");
       _LcdOLED.setCursor(12, 43);
-      _LcdOLED.println("Remover Comando");
+      _LcdOLED.println("Adicionar Cmd Vent.");
       _LcdOLED.display();
       break;
 
+    case 4:
+      _LcdOLED.clearDisplay();
+      _printHeader();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 43);
+      _LcdOLED.println("->");
+      _LcdOLED.setCursor(12, 19);
+      _LcdOLED.println("Adicionar Cmd On");
+      _LcdOLED.setCursor(12, 31);
+      _LcdOLED.println("Adicionar Cmd Off");
+      _LcdOLED.setCursor(12, 43);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.display();
+      break;
     case 20:
       _LcdOLED.clearDisplay();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
@@ -736,3 +750,14 @@ void IHM::setAddCommand(bool (*fuction)()) {
 void IHM::setTestCommand(void (*fuction)()) {
   _testCommand = fuction;
 }
+void IHM::setSaveCmdOn(bool (*fuction)()) {
+  _saveCmdOn = fuction;
+}
+
+void IHM::setSaveCmdOff(bool (*fuction)()) {
+  _saveCmdOff = fuction;
+}
+void IHM::setSaveCmdVentilate(bool (*fuction)()) {
+  _saveCmdVentilate = fuction;
+}
+
