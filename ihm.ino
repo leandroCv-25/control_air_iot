@@ -1,295 +1,5 @@
 #include "ihm.h"
 
-// void testdrawline() {
-//   int16_t i;
-
-//   _LcdOLED.clearDisplay(); // Clear display buffer
-
-//   for(i=0; i<_LcdOLED.width(); i+=4) {
-//     _LcdOLED.drawLine(0, 0, i, _LcdOLED.height()-1, WHITE);
-//     _LcdOLED.display(); // Update screen with each newly-drawn line
-//     delay(1);
-//   }
-//   for(i=0; i<_LcdOLED.height(); i+=4) {
-//     _LcdOLED.drawLine(0, 0, _LcdOLED.width()-1, i, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-//   delay(250);
-
-//   _LcdOLED.clearDisplay();
-
-//   for(i=0; i<_LcdOLED.width(); i+=4) {
-//     _LcdOLED.drawLine(0, _LcdOLED.height()-1, i, 0, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-//   for(i=_LcdOLED.height()-1; i>=0; i-=4) {
-//     _LcdOLED.drawLine(0, _LcdOLED.height()-1, _LcdOLED.width()-1, i, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-//   delay(250);
-
-//   _LcdOLED.clearDisplay();
-
-//   for(i=_LcdOLED.width()-1; i>=0; i-=4) {
-//     _LcdOLED.drawLine(_LcdOLED.width()-1, _LcdOLED.height()-1, i, 0, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-//   for(i=_LcdOLED.height()-1; i>=0; i-=4) {
-//     _LcdOLED.drawLine(_LcdOLED.width()-1, _LcdOLED.height()-1, 0, i, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-//   delay(250);
-
-//   _LcdOLED.clearDisplay();
-
-//   for(i=0; i<_LcdOLED.height(); i+=4) {
-//     _LcdOLED.drawLine(_LcdOLED.width()-1, 0, 0, i, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-//   for(i=0; i<_LcdOLED.width(); i+=4) {
-//     _LcdOLED.drawLine(_LcdOLED.width()-1, 0, i, _LcdOLED.height()-1, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-
-//   delay(2000); // Pause for 2 seconds
-// }
-
-// void testdrawrect(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=0; i<_LcdOLED.height()/2; i+=2) {
-//     _LcdOLED.drawRect(i, i, _LcdOLED.width()-2*i, _LcdOLED.height()-2*i, WHITE);
-//     _LcdOLED.display(); // Update screen with each newly-drawn rectangle
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testfillrect(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=0; i<_LcdOLED.height()/2; i+=3) {
-//     // The INVERSE color is used so rectangles alternate white/black
-//     _LcdOLED.fillRect(i, i, _LcdOLED.width()-i*2, _LcdOLED.height()-i*2, INVERSE);
-//     _LcdOLED.display(); // Update screen with each newly-drawn rectangle
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testdrawcircle(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=0; i<max(_LcdOLED.width(),_LcdOLED.height())/2; i+=2) {
-//     _LcdOLED.drawCircle(_LcdOLED.width()/2, _LcdOLED.height()/2, i, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testfillcircle(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=max(_LcdOLED.width(),_LcdOLED.height())/2; i>0; i-=3) {
-//     // The INVERSE color is used so circles alternate white/black
-//     _LcdOLED.fillCircle(_LcdOLED.width() / 2, _LcdOLED.height() / 2, i, INVERSE);
-//     _LcdOLED.display(); // Update screen with each newly-drawn circle
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testdrawroundrect(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=0; i<_LcdOLED.height()/2-2; i+=2) {
-//     _LcdOLED.drawRoundRect(i, i, _LcdOLED.width()-2*i, _LcdOLED.height()-2*i,
-//       _LcdOLED.height()/4, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testfillroundrect(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=0; i<_LcdOLED.height()/2-2; i+=2) {
-//     // The INVERSE color is used so round-rects alternate white/black
-//     _LcdOLED.fillRoundRect(i, i, _LcdOLED.width()-2*i, _LcdOLED.height()-2*i,
-//       _LcdOLED.height()/4, INVERSE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testdrawtriangle(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=0; i<max(_LcdOLED.width(),_LcdOLED.height())/2; i+=5) {
-//     _LcdOLED.drawTriangle(
-//       _LcdOLED.width()/2  , _LcdOLED.height()/2-i,
-//       _LcdOLED.width()/2-i, _LcdOLED.height()/2+i,
-//       _LcdOLED.width()/2+i, _LcdOLED.height()/2+i, WHITE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testfilltriangle(void) {
-//   _LcdOLED.clearDisplay();
-
-//   for(int16_t i=max(_LcdOLED.width(),_LcdOLED.height())/2; i>0; i-=5) {
-//     // The INVERSE color is used so triangles alternate white/black
-//     _LcdOLED.fillTriangle(
-//       _LcdOLED.width()/2  , _LcdOLED.height()/2-i,
-//       _LcdOLED.width()/2-i, _LcdOLED.height()/2+i,
-//       _LcdOLED.width()/2+i, _LcdOLED.height()/2+i, INVERSE);
-//     _LcdOLED.display();
-//     delay(1);
-//   }
-
-//   delay(2000);
-// }
-
-// void testdrawchar(void) {
-//   _LcdOLED.clearDisplay();
-
-//   _LcdOLED.setTextSize(1);      // Normal 1:1 pixel scale
-//   _LcdOLED.setTextColor(WHITE); // Draw white text
-//   _LcdOLED.setCursor(0, 0);     // Start at top-left corner
-//   _LcdOLED.cp437(true);         // Use full 256 char 'Code Page 437' font
-
-//   // Not all the characters will fit on the _LcdOLED. This is normal.
-//   // Library will draw what it can and the rest will be clipped.
-//   for(int16_t i=0; i<256; i++) {
-//     if(i == '\n') _LcdOLED.write(' ');
-//     else          _LcdOLED.write(i);
-//   }
-
-//   _LcdOLED.display();
-//   delay(2000);
-// }
-
-// void testdrawstyles(void) {
-//   _LcdOLED.clearDisplay();
-
-//   _LcdOLED.setTextSize(1);             // Normal 1:1 pixel scale
-//   _LcdOLED.setTextColor(WHITE);        // Draw white text
-//   _LcdOLED.setCursor(0,0);             // Start at top-left corner
-//   _LcdOLED.println(F("Hello, world!"));
-
-//   _LcdOLED.setTextColor(BLACK, WHITE); // Draw 'inverse' text
-//   _LcdOLED.println(3.141592);
-
-//   _LcdOLED.setTextSize(2);             // Draw 2X-scale text
-//   _LcdOLED.setTextColor(WHITE);
-//   _LcdOLED.print(F("0x")); _LcdOLED.println(0xDEADBEEF, HEX);
-
-//   _LcdOLED.display();
-//   delay(2000);
-// }
-
-// void testscrolltext(void) {
-//   _LcdOLED.clearDisplay();
-
-//   _LcdOLED.setTextSize(2); // Draw 2X-scale text
-//   _LcdOLED.setTextColor(WHITE);
-//   _LcdOLED.setCursor(10, 0);
-//   _LcdOLED.println(F("scroll"));
-//   _LcdOLED.display();      // Show initial text
-//   delay(100);
-
-//   // Scroll in various directions, pausing in-between:
-//   _LcdOLED.startscrollright(0x00, 0x0F);
-//   delay(2000);
-//   _LcdOLED.stopscroll();
-//   delay(1000);
-//   _LcdOLED.startscrollleft(0x00, 0x0F);
-//   delay(2000);
-//   _LcdOLED.stopscroll();
-//   delay(1000);
-//   _LcdOLED.startscrolldiagright(0x00, 0x07);
-//   delay(2000);
-//   _LcdOLED.startscrolldiagleft(0x00, 0x07);
-//   delay(2000);
-//   _LcdOLED.stopscroll();
-//   delay(1000);
-// }
-
-// void testdrawbitmap(void) {
-//   _LcdOLED.clearDisplay();
-
-//   _LcdOLED.drawBitmap(
-//     (_LcdOLED.width()  - LOGO_WIDTH ) / 2,
-//     (_LcdOLED.height() - LOGO_HEIGHT) / 2,
-//     logo_bmp, LOGO_WIDTH, LOGO_HEIGHT, 1);
-//   _LcdOLED.display();
-//   delay(1000);
-// }
-
-// #define XPOS   0 // Indexes into the 'icons' array in function below
-// #define YPOS   1
-// #define DELTAY 2
-
-// void testanimate(const uint8_t *bitmap, uint8_t w, uint8_t h) {
-//   int8_t f, icons[NUMFLAKES][3];
-
-//   // Initialize 'snowflake' positions
-//   for(f=0; f< NUMFLAKES; f++) {
-//     icons[f][XPOS]   = random(1 - LOGO_WIDTH, _LcdOLED.width());
-//     icons[f][YPOS]   = -LOGO_HEIGHT;
-//     icons[f][DELTAY] = random(1, 6);
-//     Serial.print(F("x: "));
-//     Serial.print(icons[f][XPOS], DEC);
-//     Serial.print(F(" y: "));
-//     Serial.print(icons[f][YPOS], DEC);
-//     Serial.print(F(" dy: "));
-//     Serial.println(icons[f][DELTAY], DEC);
-//   }
-
-//   for(;;) { // Loop forever...
-//     _LcdOLED.clearDisplay(); // Clear the display buffer
-
-//     // Draw each snowflake:
-//     for(f=0; f< NUMFLAKES; f++) {
-//       _LcdOLED.drawBitmap(icons[f][XPOS], icons[f][YPOS], bitmap, w, h, WHITE);
-//     }
-
-//     _LcdOLED.display(); // Show the display buffer on the screen
-//     delay(200);        // Pause for 1/10 second
-
-//     // Then update coordinates of each flake...
-//     for(f=0; f< NUMFLAKES; f++) {
-//       icons[f][YPOS] += icons[f][DELTAY];
-//       // If snowflake is off the bottom of the screen...
-//       if (icons[f][YPOS] >= _LcdOLED.height()) {
-//         // Reinitialize to a random position, just off the top
-//         icons[f][XPOS]   = random(1 - LOGO_WIDTH, _LcdOLED.width());
-//         icons[f][YPOS]   = -LOGO_HEIGHT;
-//         icons[f][DELTAY] = random(1, 6);
-//       }
-//     }
-//   }
-// }
-
 IHM::IHM(int enter, int back, int up, int down) {
   _wifiStatus = OFFLINE;
   _dbWifi = "";
@@ -436,11 +146,21 @@ void IHM::_print() {
       _LcdOLED.println("Adicionar Cmd Vent.");
       _LcdOLED.display();
       break;
+
+    case 10:
+      _LcdOLED.clearDisplay();
+      _printHeader();
+      _LcdOLED.setTextSize(2);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 19);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.display();
+      break;
+
     case 20:
       _LcdOLED.clearDisplay();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(0, 6);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
       _LcdOLED.setCursor(0, 19);
       _LcdOLED.println("Voce tera 15 segundos");
@@ -453,7 +173,7 @@ void IHM::_print() {
       _LcdOLED.clearDisplay();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(0, 6);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(12, 25);
@@ -462,9 +182,9 @@ void IHM::_print() {
       _LcdOLED.println("do controle");
       _LcdOLED.display();
       if ((*_addCommand)()) {
-        _status = 22;
+        _status = _status++;
       } else {
-        _status = 25;
+        _status = _status += 4;
       }
       _print();
 
@@ -474,7 +194,7 @@ void IHM::_print() {
       _LcdOLED.clearDisplay();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(0, 6);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(12, 25);
@@ -484,28 +204,32 @@ void IHM::_print() {
       _LcdOLED.display();
 
       (*_testCommand)();
-      
+
       break;
 
     case 23:
       _LcdOLED.clearDisplay();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(0, 6);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(12, 25);
       _LcdOLED.println("Salvando o comando");
       _LcdOLED.display();
 
-      //To do fazer o salvar comando
+      if ((*_saveCmdOn)()) {
+        _status = _status++;
+      } else {
+        _status = _status += 2;
+      }
       break;
 
     case 24:
       _LcdOLED.clearDisplay();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(0, 6);
-      _LcdOLED.println("Adicionar Comando");
+      _LcdOLED.println("Adicionar Cmd On");
       _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(12, 25);
@@ -513,8 +237,178 @@ void IHM::_print() {
       _LcdOLED.setCursor(12, 37);
       _LcdOLED.println("deu tudo certo.");
       _LcdOLED.display();
-      delay(2000);
-      _status = 2;
+      vTaskDelay(pdMS_TO_TICKS(2000));
+      _status = _status / 10;
+      break;
+
+    case 30:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Off");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setCursor(0, 19);
+      _LcdOLED.println("Voce tera 15 segundos");
+      _LcdOLED.setCursor(0, 42);
+      _LcdOLED.println("Pressione Enter para comecar!");
+      _LcdOLED.display();
+      break;
+
+    case 31:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Off");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Aperte o comando");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("do controle");
+      _LcdOLED.display();
+      if ((*_addCommand)()) {
+        _status = _status++;
+      } else {
+        _status = _status += 4;
+      }
+      _print();
+
+      break;
+
+    case 32:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Off");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Confirme!");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("o aparelho Apitou?");
+      _LcdOLED.display();
+
+      (*_testCommand)();
+
+      break;
+
+    case 33:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Off");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Salvando o comando");
+      _LcdOLED.display();
+
+      if ((*_saveCmdOff)()) {
+        _status = _status++;
+      } else {
+        _status = _status += 2;
+      }
+      break;
+
+    case 34:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Off");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Pronto!");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("deu tudo certo.");
+      _LcdOLED.display();
+      vTaskDelay(pdMS_TO_TICKS(2000));
+      _status = _status / 10;
+      break;
+
+    case 40:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setCursor(0, 19);
+      _LcdOLED.println("Voce tera 15 segundos");
+      _LcdOLED.setCursor(0, 42);
+      _LcdOLED.println("Pressione Enter para comecar!");
+      _LcdOLED.display();
+      break;
+
+    case 41:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Aperte o comando");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("do controle");
+      _LcdOLED.display();
+      if ((*_addCommand)()) {
+        _status = _status++;
+      } else {
+        _status = _status += 4;
+      }
+      _print();
+
+      break;
+
+    case 42:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Confirme!");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("o aparelho Apitou?");
+      _LcdOLED.display();
+
+      (*_testCommand)();
+
+      break;
+
+    case 43:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Salvando o comando");
+      _LcdOLED.display();
+
+      if ((*_saveCmdVentilate)()) {
+        _status = _status++;
+      } else {
+        _status = _status += 2;
+      }
+      break;
+
+    case 44:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(0, 6);
+      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Pronto!");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("deu tudo certo.");
+      _LcdOLED.display();
+      vTaskDelay(pdMS_TO_TICKS(2000));
+      _status = _status / 10;
       break;
 
     default:
@@ -607,24 +501,20 @@ void IHM::controller() {
       _refresh = true;
     }
 
-    if (_status == 20 && interaction == ENTER) {
+    if ((_status == 20 || _status == 30 || _status == 40) && interaction == ENTER) {
       _status++;
       _refresh = true;
     }
 
-    
-
-    if (_status == 22) {
+    if (_status == 22 || _status == 32 || _status == 22) {
       if (interaction == ENTER) {
         _status++;
         _refresh = true;
       } else if (interaction == BACK) {
-        _status=25;
+        _status += 3;
         _refresh = true;
       }
     }
-
-    
   }
 
   if (_refresh) {
@@ -760,4 +650,3 @@ void IHM::setSaveCmdOff(bool (*fuction)()) {
 void IHM::setSaveCmdVentilate(bool (*fuction)()) {
   _saveCmdVentilate = fuction;
 }
-

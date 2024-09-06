@@ -72,7 +72,7 @@ void _irSendCommand(List<command> *command) {
 
     irsend.sendRaw(command->get(i).data, command->get(i).size, kFrequency);
     // irrecv.resume();
-    delay(50);
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
 }
 
@@ -85,11 +85,19 @@ bool irsaveCommand(typeCommand type) {
     return false;
   }
 
+  int sizeCmd = 0;
+
   if (type == ON) {
+    sizeCmd = sizeof(newCommand);
+    nvs_set_blob(handle, "CmdOnSize", &sizeCmd, sizeof(sizeCmd));
     nvs_set_blob(handle, "CmdOn", &newCommand, sizeof(newCommand));
   } else if (type == OFF) {
-    nvs_set_blob(handle, "CmdOFF", &newCommand, sizeof(newCommand));
+    sizeCmd = sizeof(newCommand);
+    nvs_set_blob(handle, "CmdOffSize", &sizeCmd, sizeof(sizeCmd));
+    nvs_set_blob(handle, "CmdOff", &newCommand, sizeof(newCommand));
   } else {
+    sizeCmd = sizeof(newCommand);
+    nvs_set_blob(handle, "CmdVentilateSize", &sizeCmd, sizeof(sizeCmd));
     nvs_set_blob(handle, "CmdVentilate", &newCommand, sizeof(newCommand));
   }
 
@@ -104,9 +112,44 @@ bool irsaveCommand(typeCommand type) {
 }
 
 bool _irloadCommand(typeCommand type) {
+
+  nvs_handle handle;
+
+  if (nvs_open(app_nvs_ir_namespace, NVS_READWRITE, &handle) != ESP_OK) {
+    Serial.println("Error while opening NVS handle!\n");
+    return false;
+  }
+
+  size_t sizeCmd = 0;
+  size_t size = sizeof(sizeCmd);
+  if (type == ON) {
+    nvs_get_blob(handle, "CmdOnSize", &sizeCmd, &size);
+    if (nvs_get_blob(handle, "CmdOn", &newCommand, &sizeCmd) != ESP_OK) {
+      Serial.println("No cmd found in NVS");
+      return false;
+    }
+  } else if (type == OFF) {
+    nvs_get_blob(handle, "CmdOFFSize", &sizeCmd, &size);
+    if (nvs_get_blob(handle, "CmdOFF", &newCommand, &sizeCmd) != ESP_OK) {
+      Serial.println("No cmd found in NVS");
+      return false;
+    }
+  } else {
+    nvs_get_blob(handle, "CmdVentilateSize", &sizeCmd, &size);
+    if (nvs_get_blob(handle, "CmdVentilate", &newCommand, &sizeCmd) != ESP_OK) {
+      Serial.println("No cmd found in NVS");
+      return false;
+    }
+  }
+
+  nvs_close(handle);
+  return true;
 }
 
 void irSendCommand(typeCommand type) {
+  if (_irloadCommand(type)) {
+    _irSendCommand(&newCommand);
+  }
 }
 
 
