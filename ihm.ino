@@ -150,9 +150,13 @@ void IHM::_print() {
     case 10:
       _LcdOLED.clearDisplay();
       _printHeader();
-      _LcdOLED.setTextSize(2);  // Draw 1X-scale text
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
       _LcdOLED.setCursor(0, 19);
-      _LcdOLED.println("Adicionar Cmd Vent.");
+      _LcdOLED.println("Configurar Wi-Fi");
+      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.println("Confirme!");
+      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.println("Deseja alterar a rede?");
       _LcdOLED.display();
       break;
 
@@ -181,10 +185,11 @@ void IHM::_print() {
       _LcdOLED.setCursor(12, 37);
       _LcdOLED.println("do controle");
       _LcdOLED.display();
+
       if ((*_addCommand)()) {
-        _status = _status++;
+        _status = 22;
       } else {
-        _status = _status += 4;
+        _status = 25;
       }
       _print();
 
@@ -219,10 +224,11 @@ void IHM::_print() {
       _LcdOLED.display();
 
       if ((*_saveCmdOn)()) {
-        _status = _status++;
+        _status = 24;
       } else {
-        _status = _status += 2;
+        _status = 25;
       }
+      _print();
       break;
 
     case 24:
@@ -238,7 +244,9 @@ void IHM::_print() {
       _LcdOLED.println("deu tudo certo.");
       _LcdOLED.display();
       vTaskDelay(pdMS_TO_TICKS(2000));
-      _status = _status / 10;
+
+      _status = 2;
+      _print();
       break;
 
     case 30:
@@ -266,10 +274,11 @@ void IHM::_print() {
       _LcdOLED.setCursor(12, 37);
       _LcdOLED.println("do controle");
       _LcdOLED.display();
-      if ((*_addCommand)()) {
-        _status = _status++;
+
+       if ((*_addCommand)()) {
+        _status = 32;
       } else {
-        _status = _status += 4;
+        _status = 35;
       }
       _print();
 
@@ -304,10 +313,11 @@ void IHM::_print() {
       _LcdOLED.display();
 
       if ((*_saveCmdOff)()) {
-        _status = _status++;
+        _status = 34;
       } else {
-        _status = _status += 2;
+        _status = 35;
       }
+      _print();
       break;
 
     case 34:
@@ -322,8 +332,10 @@ void IHM::_print() {
       _LcdOLED.setCursor(12, 37);
       _LcdOLED.println("deu tudo certo.");
       _LcdOLED.display();
+
       vTaskDelay(pdMS_TO_TICKS(2000));
-      _status = _status / 10;
+      _status = 3;
+      _print();
       break;
 
     case 40:
@@ -351,10 +363,11 @@ void IHM::_print() {
       _LcdOLED.setCursor(12, 37);
       _LcdOLED.println("do controle");
       _LcdOLED.display();
+
       if ((*_addCommand)()) {
-        _status = _status++;
+        _status = 42;
       } else {
-        _status = _status += 4;
+        _status = 45;
       }
       _print();
 
@@ -389,10 +402,11 @@ void IHM::_print() {
       _LcdOLED.display();
 
       if ((*_saveCmdVentilate)()) {
-        _status = _status++;
+        _status = 44;
       } else {
-        _status = _status += 2;
+        _status = 45;
       }
+      _print();
       break;
 
     case 44:
@@ -408,7 +422,8 @@ void IHM::_print() {
       _LcdOLED.println("deu tudo certo.");
       _LcdOLED.display();
       vTaskDelay(pdMS_TO_TICKS(2000));
-      _status = _status / 10;
+      _status = 4;
+      _print();
       break;
 
     default:
@@ -482,12 +497,12 @@ void IHM::controller() {
       _status = _status * 10;
     } else if (interaction == UP) {
       if (_status == 1) {
-        _status = 3;
+        _status = 4;
       } else {
         _status--;
       }
     } else if (interaction == DOWN) {
-      if (_status == 3) {
+      if (_status == 4) {
         _status = 1;
       } else {
         _status++;
@@ -506,7 +521,7 @@ void IHM::controller() {
       _refresh = true;
     }
 
-    if (_status == 22 || _status == 32 || _status == 22) {
+    if (_status == 22 || _status == 32 || _status == 42) {
       if (interaction == ENTER) {
         _status++;
         _refresh = true;
@@ -518,8 +533,8 @@ void IHM::controller() {
   }
 
   if (_refresh) {
-    _print();
     _refresh = false;
+    _print();
   }
 }
 

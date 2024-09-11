@@ -5,7 +5,7 @@
 
 #define buttonEnter 34
 #define buttonBack 35
-#define buttonUp 36
+#define buttonUp 32
 #define buttonDown 33
 
 IHM ihm(buttonEnter, buttonBack, buttonUp, buttonDown);
@@ -34,6 +34,7 @@ void setup() {
   ihm.setSaveCmdOff(saveOnCmdOff);
   ihm.setSaveCmdVentilate(saveOnCmdVentilate);
   vTaskDelay(pdMS_TO_TICKS(2000));
+  irSendCommand(OFF);
 }
 
 void loop() {
