@@ -70,7 +70,6 @@ void IHM::_printHeader() {
 
 
 void IHM::_print() {
-
   switch (_status) {
     case 0:
       _LcdOLED.clearDisplay();
@@ -151,12 +150,56 @@ void IHM::_print() {
       _LcdOLED.clearDisplay();
       _printHeader();
       _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
       _LcdOLED.setCursor(0, 19);
       _LcdOLED.println("Configurar Wi-Fi");
-      _LcdOLED.setCursor(12, 25);
+      _LcdOLED.setTextSize(2);
+      _LcdOLED.setCursor(0, 31);
       _LcdOLED.println("Confirme!");
-      _LcdOLED.setCursor(12, 37);
+      _LcdOLED.setTextSize(1);
+      _LcdOLED.setCursor(0, 48);
       _LcdOLED.println("Deseja alterar a rede?");
+      _LcdOLED.display();
+      break;
+
+    case 11:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setCursor(0, 0);
+      _LcdOLED.println("Configurar Wi-Fi");
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setCursor(0, 19);
+
+      _LcdOLED.println((*_wifiProv)().c_str());
+      _LcdOLED.display();
+      break;
+
+    case 12:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setCursor(0, 0);
+      _LcdOLED.println("Configurar Wi-Fi");
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setCursor(16, 19);
+
+      _LcdOLED.println("Sucesso!!");
+      _LcdOLED.display();
+
+      vTaskDelay(pdMS_TO_TICKS(2000));
+
+      _status = 0;
+      _print();
+      break;
+
+    case 13:
+      _LcdOLED.clearDisplay();
+      _LcdOLED.setCursor(0, 0);
+      _LcdOLED.println("Configurar Wi-Fi");
+      _LcdOLED.setTextSize(1);  // Draw 1X-scale text
+      _LcdOLED.drawLine(0, 17, _LcdOLED.width() - 1, 17, WHITE);
+      _LcdOLED.setCursor(16, 19);
+
+      _LcdOLED.println("Erro!!\nFalha na autenticação");
       _LcdOLED.display();
       break;
 
@@ -275,7 +318,7 @@ void IHM::_print() {
       _LcdOLED.println("do controle");
       _LcdOLED.display();
 
-       if ((*_addCommand)()) {
+      if ((*_addCommand)()) {
         _status = 32;
       } else {
         _status = 35;
@@ -516,7 +559,7 @@ void IHM::controller() {
       _refresh = true;
     }
 
-    if ((_status == 20 || _status == 30 || _status == 40) && interaction == ENTER) {
+    if ((_status == 10 || _status == 20 || _status == 30 || _status == 40) && interaction == ENTER) {
       _status++;
       _refresh = true;
     }
@@ -664,4 +707,8 @@ void IHM::setSaveCmdOff(bool (*fuction)()) {
 }
 void IHM::setSaveCmdVentilate(bool (*fuction)()) {
   _saveCmdVentilate = fuction;
+}
+
+void IHM::setWifiProv(String (*fuction)()) {
+  _wifiProv = fuction;
 }

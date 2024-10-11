@@ -45,6 +45,7 @@ private:
   bool (*_saveCmdOn)();
   bool (*_saveCmdOff)();
   bool (*_saveCmdVentilate)();
+  String (*_wifiProv)();
 
   bool _refresh;
 
@@ -64,6 +65,7 @@ public:
   void setSaveCmdOn(bool (*fuction)());
   void setSaveCmdOff(bool (*fuction)());
   void setSaveCmdVentilate(bool (*fuction)());
+  void setWifiProv(String (*fuction)());
 
   void controller();
 };

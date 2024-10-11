@@ -1,7 +1,7 @@
 
 #include "ihm.h"
 #include "ir.h"
-#include "ir.h"
+#include "wifi_mesh_app.h"
 
 #define buttonEnter 34
 #define buttonBack 35
@@ -25,6 +25,8 @@ bool saveOnCmdVentilate() {
 void setup() {
   Serial.begin(115200);
 
+  wifi_app_start();
+
   irBegin();
 
   ihm.begin(21, 22);
@@ -33,8 +35,8 @@ void setup() {
   ihm.setSaveCmdOn(saveOnCmdOn);
   ihm.setSaveCmdOff(saveOnCmdOff);
   ihm.setSaveCmdVentilate(saveOnCmdVentilate);
+  ihm.setWifiProv(wifi_prov_app_start);
   vTaskDelay(pdMS_TO_TICKS(2000));
-  irSendCommand(OFF);
 }
 
 void loop() {
